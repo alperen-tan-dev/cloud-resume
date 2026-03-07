@@ -1,0 +1,12 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding-top: 50px;
+}
+
+#counter-section {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
