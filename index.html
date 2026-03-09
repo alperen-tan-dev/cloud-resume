@@ -1,18 +1,74 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Benim Bulut Özgeçmişim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alperen Tan | Cloud Developer Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Merhaba, Ben Alperen Tan</h1>
-    <p>Geleceğin Yazılımcısı ve Bulut Mühendisi.</p>
+    <div class="container">
+        <header>
+            <h1>ALPEREN TAN</h1>
+            <p class="tagline">Cloud Developer & Serverless Architect Associate</p>
+            <div class="contact-info">
+                <span><i class="fas fa-envelope"></i> <a href="mailto:alperentan05@gmail.com">alperentan05@gmail.com</a></span>
+                <span><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/alperen-tan-dev/" target="_blank">LinkedIn</a></span>
+                <span><i class="fab fa-github"></i> <a href="https://github.com/alperen-tan-dev" target="_blank">GitHub</a></span>
+            </div>
+        </header>
 
-    <div id="counter-section">
-        <p>Bu site toplam <span id="counter">0</span> kez görüntülendi.</p>
+        <main>
+            <section>
+                <h3><i class="fas fa-terminal"></i> // Profile_Summary</h3>
+                <p>Aspiring Cloud Developer focused on building scalable and highly available infrastructures on AWS. I successfully implemented an end-to-end serverless architecture through the "Cloud Resume Challenge." Passionate about automating manual workflows and writing clean, efficient code.</p>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-code"></i> // Technical_Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <strong>Cloud:</strong> AWS (S3, Lambda, DynamoDB, API Gateway, CloudFront)
+                    </div>
+                    <div class="skill-category">
+                        <strong>Backend:</strong> Python (Boto3), RESTful APIs
+                    </div>
+                    <div class="skill-category">
+                        <strong>Frontend:</strong> JavaScript (ES6+), HTML5, CSS3
+                    </div>
+                    <div class="skill-category">
+                        <strong>DevOps/Tools:</strong> Git, GitHub Actions, Infrastructure as Code (IaC)
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-project-diagram"></i> // Featured_Projects</h3>
+                
+                <div class="project-card">
+                    <h4>AWS Serverless Cloud Resume</h4>
+                    <p class="project-desc">A fully functional, high-availability portfolio application deployed on AWS services.</p>
+                    <ul>
+                        <li><strong>Frontend:</strong> Hosted as a static website on Amazon S3 with global delivery.</li>
+                        <li><strong>Backend:</strong> Developed Python-based Lambda functions to handle asynchronous visitor requests.</li>
+                        <li><strong>Database:</strong> Leveraged Amazon DynamoDB (NoSQL) for real-time visitor count tracking and persistence.</li>
+                        <li><strong>Connectivity:</strong> Integrated Amazon API Gateway to bridge Frontend and Backend with proper CORS configuration.</li>
+                        <li><strong>Security:</strong> Implemented <b>CORS</b> policies and managed <b>IAM roles</b> to ensure secure communication between the frontend and the cloud infrastructure.</li>
+                        
+                    </ul>
+                </div>
+            </section>
+
+            
+        </main>
+
+        <footer>
+            <div class="counter-box">
+                <i class="fas fa-eye"></i> Visitor Count: <span id="counter">...</span>
+            </div>
+        </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
