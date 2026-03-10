@@ -117,7 +117,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             [ "AWS/Lambda", "Invocations", "FunctionName", "resume-counter-func" ]
           ]
-          period = 60
+          period = 300
           stat   = "Sum"
           region = "eu-north-1"
           title  = "Toplam Ziyaretci Tetiklemeleri (Lambda)"
@@ -133,7 +133,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             [ "AWS/Lambda", "Errors", "FunctionName", "resume-counter-func" ]
           ]
-          period = 60
+          period = 300
           stat   = "Sum"
           region = "eu-north-1"
           title  = "Sistem Hatalari"
