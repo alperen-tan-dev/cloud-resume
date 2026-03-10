@@ -114,7 +114,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           ]
           period = 300
           stat   = "Sum"
-          region = "us-east-1"
+          region = "eu-north-1"
           title  = "Toplam Ziyaretçi Tetiklemeleri (Lambda)"
         }
       },
@@ -130,7 +130,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           ]
           period = 300
           stat   = "Sum"
-          region = "us-east-1"
+          region = "eu-north-1"
           title  = "Sistem Hataları"
         }
       }
