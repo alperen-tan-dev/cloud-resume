@@ -79,7 +79,7 @@ resource "aws_dynamodb_table" "visitor_counter" {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "lambda_function.py" 
+  source_file = "lambda_function.py"
   output_path = "lambda_function.zip"
 }
 
@@ -117,7 +117,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             [ "AWS/Lambda", "Invocations", "FunctionName", "resume-counter-func" ]
           ]
-          period = 300
+          period = 60
           stat   = "Sum"
           region = "eu-north-1"
           title  = "Toplam Ziyaretci Tetiklemeleri (Lambda)"
@@ -133,7 +133,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             [ "AWS/Lambda", "Errors", "FunctionName", "resume-counter-func" ]
           ]
-          period = 300
+          period = 60
           stat   = "Sum"
           region = "eu-north-1"
           title  = "Sistem Hatalari"
