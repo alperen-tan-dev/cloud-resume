@@ -87,3 +87,12 @@ resource "aws_lambda_function" "cv_lambda" {
 
   source_code_hash = filebase64sha256("lambda_function.zip")
 }
+
+output "cloudfront_url" {
+  value       = aws_cloudfront_distribution.cv_distribution.domain_name
+  description = "Web sitemin CloudFront URL adresi"
+}
+
+output "s3_bucket_name" {
+  value = aws_s3_bucket.cv_bucket.id
+}
