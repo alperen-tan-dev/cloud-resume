@@ -117,10 +117,11 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             [ "AWS/Lambda", "Invocations", "FunctionName", "resume-counter-func" ]
           ]
-          period = 300
-          stat   = "Sum"
-          region = "eu-north-1"
-          title  = "Toplam Ziyaretci Tetiklemeleri (Lambda)"
+          view    = "singleValue"
+          period  = 86400
+          stat    = "Sum"
+          region  = "eu-north-1"
+          title   = "Toplam Ziyaretci Sayisi"
         }
       },
       {
@@ -133,10 +134,11 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             [ "AWS/Lambda", "Errors", "FunctionName", "resume-counter-func" ]
           ]
-          period = 300
-          stat   = "Sum"
-          region = "eu-north-1"
-          title  = "Sistem Hatalari"
+          view    = "singleValue"
+          period  = 86400
+          stat    = "Sum"
+          region  = "eu-north-1"
+          title   = "Toplam Sistem Hatasi"
         }
       }
     ]
