@@ -77,26 +77,36 @@ resource "aws_dynamodb_table" "visitor_counter" {
   }
 }
 
+# --- Lambda Kodunu Paketleme ---
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_file = "lambda_function.py" 
+  output_path = "lambda_function.zip"
+}
+
+# --- Lambda Fonksiyonu ---
 resource "aws_lambda_function" "cv_lambda" {
   function_name = "resume-counter-func"
   role          = "arn:aws:iam::859217211762:role/service-role/resume-counter-func-role-5tzfz7zi"
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.12"
-  filename      = "lambda_function.zip"
-
-
-  source_code_hash = filebase64sha256("lambda_function.zip")
+  
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }
 
-output "cloudfront_url" {
-  value       = aws_cloudfront_distribution.cv_distribution.domain_name
-  description = "Web sitemin CloudFront URL adresi"
+# --- YENİ EKLENEN KISIM: LAMBDA FUNCTION URL ---
+resource "aws_lambda_function_url" "cv_lambda_url" {
+  function_name      = aws_lambda_function.cv_lambda.function_name
+  authorization_type = "NONE"
+
+  cors {
+    allow_origins = ["*"]
+    allow_methods = ["GET"]
+  }
 }
 
-output "s3_bucket_name" {
-  value = aws_s3_bucket.cv_bucket.id
-}
-
+# --- Dashboard ---
 resource "aws_cloudwatch_dashboard" "main" {
   dashboard_name = "CloudResumeDashboard"
 
@@ -115,7 +125,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           period = 300
           stat   = "Sum"
           region = "eu-north-1"
-          title  = "Toplam Ziyaretçi Tetiklemeleri (Lambda)"
+          title  = "Toplam Ziyaretci Tetiklemeleri (Lambda)"
         }
       },
       {
@@ -131,9 +141,24 @@ resource "aws_cloudwatch_dashboard" "main" {
           period = 300
           stat   = "Sum"
           region = "eu-north-1"
-          title  = "Sistem Hataları"
+          title  = "Sistem Hatalari"
         }
       }
     ]
   })
+}
+
+# --- Çıktılar (Output) ---
+output "cloudfront_url" {
+  value       = aws_cloudfront_distribution.cv_distribution.domain_name
+  description = "Web sitemin CloudFront URL adresi"
+}
+
+output "s3_bucket_name" {
+  value = aws_s3_bucket.cv_bucket.id
+}
+
+# BU ÇIKTI SANA YENİ LİNKİ VERECEK
+output "lambda_url" {
+  value = aws_lambda_function_url.cv_lambda_url.function_url
 }
