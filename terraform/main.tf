@@ -96,3 +96,44 @@ output "cloudfront_url" {
 output "s3_bucket_name" {
   value = aws_s3_bucket.cv_bucket.id
 }
+
+resource "aws_cloudwatch_dashboard" "main" {
+  dashboard_name = "CloudResumeDashboard"
+
+  dashboard_body = jsonencode({
+    widgets = [
+      {
+        type   = "metric"
+        x      = 0
+        y      = 0
+        width  = 12
+        height = 6
+        properties = {
+          metrics = [
+            [ "AWS/Lambda", "Invocations", "FunctionName", "resume-counter-func" ]
+          ]
+          period = 300
+          stat   = "Sum"
+          region = "us-east-1"
+          title  = "Toplam Ziyaretçi Tetiklemeleri (Lambda)"
+        }
+      },
+      {
+        type   = "metric"
+        x      = 12
+        y      = 0
+        width  = 12
+        height = 6
+        properties = {
+          metrics = [
+            [ "AWS/Lambda", "Errors", "FunctionName", "resume-counter-func" ]
+          ]
+          period = 300
+          stat   = "Sum"
+          region = "us-east-1"
+          title  = "Sistem Hataları"
+        }
+      }
+    ]
+  })
+}
