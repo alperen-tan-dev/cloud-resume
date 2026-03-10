@@ -77,25 +77,21 @@ resource "aws_dynamodb_table" "visitor_counter" {
   }
 }
 
-# --- Lambda Kodunu Paketleme ---
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_file = "lambda_function.py" 
   output_path = "lambda_function.zip"
 }
 
-# --- Lambda Fonksiyonu ---
 resource "aws_lambda_function" "cv_lambda" {
-  function_name = "resume-counter-func"
-  role          = "arn:aws:iam::859217211762:role/service-role/resume-counter-func-role-5tzfz7zi"
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.12"
-  
+  function_name    = "resume-counter-func"
+  role             = "arn:aws:iam::859217211762:role/service-role/resume-counter-func-role-5tzfz7zi"
+  handler          = "lambda_function.lambda_handler"
+  runtime          = "python3.12"
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }
 
-# --- YENİ EKLENEN KISIM: LAMBDA FUNCTION URL ---
 resource "aws_lambda_function_url" "cv_lambda_url" {
   function_name      = aws_lambda_function.cv_lambda.function_name
   authorization_type = "NONE"
@@ -106,7 +102,6 @@ resource "aws_lambda_function_url" "cv_lambda_url" {
   }
 }
 
-# --- Dashboard ---
 resource "aws_cloudwatch_dashboard" "main" {
   dashboard_name = "CloudResumeDashboard"
 
@@ -148,7 +143,6 @@ resource "aws_cloudwatch_dashboard" "main" {
   })
 }
 
-# --- Çıktılar (Output) ---
 output "cloudfront_url" {
   value       = aws_cloudfront_distribution.cv_distribution.domain_name
   description = "Web sitemin CloudFront URL adresi"
@@ -158,7 +152,6 @@ output "s3_bucket_name" {
   value = aws_s3_bucket.cv_bucket.id
 }
 
-# BU ÇIKTI SANA YENİ LİNKİ VERECEK
 output "lambda_url" {
   value = aws_lambda_function_url.cv_lambda_url.function_url
 }
