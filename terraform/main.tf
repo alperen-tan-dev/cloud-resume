@@ -61,11 +61,6 @@ resource "aws_cloudfront_distribution" "cv_distribution" {
     ignore_changes = [origin, default_cache_behavior]
   }
 
-  lifecycle {
-    ignore_changes = [origin, default_cache_behavior]
-    prevent_destroy = false
-  }
-
   tags = {
     Name = "alperen-cv-proxy"
   }
